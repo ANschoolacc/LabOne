@@ -8,11 +8,29 @@ public class Main {
   public static Scanner sc = new Scanner(System.in);
 
   public static void main(String[] args) {
+
+    Price[] times = Price.generateTimes();
     String userChoice;
 
     userChoice = menu();
 
-    System.out.println(userChoice);
+    if (userChoice.equals("e") || userChoice.equals("E")) {
+      System.exit(0);
+    }
+
+    while (!userChoice.equals("e")) {
+        if (userChoice.equals("1")) {
+        times = Price.setPrices(times);
+        userChoice = menu();
+      } else if (userChoice.equals("2")) {
+        Price.minMaxAverage(times);
+        userChoice = menu();
+      }else if (userChoice.equals("3")) {
+
+        }else if (userChoice.equals("4")) {
+
+        }
+    }
 
   }
 
@@ -41,4 +59,8 @@ public class Main {
       }
     }
   }
+
 }
+
+
+
