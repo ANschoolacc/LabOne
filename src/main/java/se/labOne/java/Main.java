@@ -31,6 +31,8 @@ public class Main {
         Price.sortByPrice(priceList);
         userChoice = menu();
       } else if (userChoice.equals("4")) {
+        Price.lowestWindow(priceList);
+        userChoice = menu();
       }
     }
 

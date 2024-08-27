@@ -97,5 +97,28 @@ public class Price {
       }
     }
   }
+
+  public static void lowestWindow(ArrayList<Price> prices) {
+    if (prices.size() != 24){
+      System.out.println("Du måste ange priserna för dygnets timmar innan du kan använda denna funktion");
+    }else {
+      int k = 4;
+      int n = prices.size();
+
+      int minSum = 0;
+      for (int i = 0; i < k; i++) {
+        minSum += prices.get(i).price;
+      }
+
+      int windowSum = minSum;
+      for (int i = k; i < n; i++) {
+        windowSum += prices.get(i).price - prices.get(i - k).price;
+        minSum = Math.min(minSum, windowSum);
+        System.out.println(prices.get(i).time + " " + prices.get(i).price);
+      }
+      System.out.println("Lägsta totalpris under 4 sammanhängande timmar: " + minSum + " öre");
+      sc.nextLine();
+    }
+  }
 }
 
