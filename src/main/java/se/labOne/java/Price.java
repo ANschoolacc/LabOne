@@ -99,25 +99,32 @@ public class Price {
   }
 
   public static void lowestWindow(ArrayList<Price> prices) {
-    if (prices.size() != 24){
+    if (prices.size() != 24) {
       System.out.println("Du måste ange priserna för dygnets timmar innan du kan använda denna funktion");
-    }else {
-      int k = 4;
-      int n = prices.size();
-
+    } else {
+      int windowsSize = 4;
+      int endIndex = 0;
       int minSum = 0;
-      for (int i = 0; i < k; i++) {
+
+      for (int i = 0; i < windowsSize; i++) {
         minSum += prices.get(i).price;
+        endIndex = i;
       }
 
       int windowSum = minSum;
-      for (int i = k; i < n; i++) {
-        windowSum += prices.get(i).price - prices.get(i - k).price;
+      for (int i = windowsSize; i < prices.size(); i++) {
+        windowSum += prices.get(i).price - prices.get(i - windowsSize).price;
+        if (windowSum < minSum) {
+          endIndex = i;
+        }
         minSum = Math.min(minSum, windowSum);
-        System.out.println(prices.get(i).time + " " + prices.get(i).price);
       }
-      System.out.println("Lägsta totalpris under 4 sammanhängande timmar: " + minSum + " öre");
-      sc.nextLine();
+
+
+      System.out.println("Pris under de billigaste 4 sammanhängade timmarna:");
+      System.out.println("Tid att börja ladda: " + prices.get(endIndex - (windowsSize - 1)).time.substring(0, 2));
+      System.out.println("Totalpris: " + minSum + " öre");
+      System.out.println("Medelpris: " + minSum / windowsSize + " öre");
     }
   }
 }
