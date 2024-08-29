@@ -31,6 +31,8 @@ public class Main {
         Price.sortByPrice(priceList);
         userChoice = menu();
       } else if (userChoice.equals("4")) {
+        Price.lowestWindow(priceList);
+        userChoice = menu();
       }
     }
 
@@ -50,7 +52,9 @@ public class Main {
     while (true) {
       try {
         userChoice = sc.nextLine();
-        if (userChoice.length() == 1 && (('1' <= userChoice.charAt(0) && userChoice.charAt(0) <= '4') || (userChoice.charAt(0) == 'e' || userChoice.charAt(0) == 'E'))) {
+        if (userChoice.length() == 1 &&
+            (('1' <= userChoice.charAt(0) && userChoice.charAt(0) <= '4')
+                || (userChoice.charAt(0) == 'e' || userChoice.charAt(0) == 'E'))) {
           return userChoice;
         } else {
           throw new InputMismatchException();
