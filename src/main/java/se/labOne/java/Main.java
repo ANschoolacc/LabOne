@@ -21,6 +21,7 @@ public class Main {
 
     while (!userChoice.equals("e")) {
       if (userChoice.equals("1")) {
+        priceList.clear();
         priceList = Price.generateTimes(priceList);
         priceList = Price.setPrices(priceList);
         userChoice = menu();
