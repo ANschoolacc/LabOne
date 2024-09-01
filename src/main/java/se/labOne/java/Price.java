@@ -1,5 +1,6 @@
 package se.labOne.java;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 import static se.labOne.java.Main.sc;
@@ -58,6 +59,11 @@ public class Price {
     }
   }
 
+  public static String twoDecimalFormat(double price) {
+    DecimalFormat df = new DecimalFormat("#.00");
+    return df.format(price);
+  }
+
   public static void minMaxAverage(ArrayList<Price> prices) {
     if (prices.size() != 24) {
       System.out.println("Du måste ange priserna för dygnets timmar innan du kan använda denna funktion");
@@ -66,7 +72,8 @@ public class Price {
       int max = prices.getFirst().price;
       String maxTime = prices.getFirst().time;
       String minTime = prices.getFirst().time;
-      int average = 0;
+      double average = 0;
+      DecimalFormat numberFormat = new DecimalFormat("#.00");
       for (Price price : prices) {
         if (price.price > max) {
           maxTime = price.time;
@@ -82,7 +89,7 @@ public class Price {
       average /= prices.size();
       System.out.println("Högsta pris: " + maxTime + " " + max + " öre");
       System.out.println("Lägsta pris: " + minTime + " " + min + " öre");
-      System.out.println("Medelpris: " + average + " öre");
+      System.out.println("Medelpris: " + twoDecimalFormat(average) + " öre");
     }
   }
 
@@ -124,11 +131,10 @@ public class Price {
         minSum = Math.min(minSum, windowSum);
       }
 
-
       System.out.println("Pris under de billigaste 4 sammanhängade timmarna:");
       System.out.println("Tid att börja ladda: " + prices.get(endIndex - (windowsSize - 1)).time.substring(0, 2));
       System.out.println("Totalpris: " + minSum + " öre");
-      System.out.println("Medelpris: " + minSum / windowsSize + " öre");
+      System.out.println("Medelpris: " + twoDecimalFormat((double) minSum / windowsSize) + " öre");
     }
   }
 }

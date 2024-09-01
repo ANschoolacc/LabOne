@@ -26,9 +26,6 @@ public class Main {
         priceList = Price.setPrices(priceList);
         userChoice = menu();
       } else if (userChoice.equals("2")) {
-        for (Price price : priceList){
-          System.out.println(price.time + " " + price.price);
-        }
         Price.minMaxAverage(priceList);
         userChoice = menu();
       } else if (userChoice.equals("3")) {
