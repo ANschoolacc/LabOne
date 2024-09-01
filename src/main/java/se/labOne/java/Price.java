@@ -90,9 +90,13 @@ public class Price {
     if (prices.size() != 24) {
       System.out.println("Du måste ange priserna för dygnets timmar innan du kan använda denna funktion");
     } else {
-      Comparator<Price> comp = (i, j) -> Integer.compare(i.price, j.price);
-      prices.sort(comp);
+      ArrayList<Price> temp = new ArrayList<Price>();
       for (Price price : prices) {
+        temp.add(price);
+      }
+      Comparator<Price> comp = (i, j) -> Integer.compare(i.price, j.price);
+      temp.sort(comp);
+      for (Price price : temp) {
         System.out.println(price.time + " " + price.price);
       }
     }

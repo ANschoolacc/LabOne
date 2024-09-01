@@ -21,10 +21,14 @@ public class Main {
 
     while (!userChoice.equals("e")) {
       if (userChoice.equals("1")) {
+        priceList.clear();
         priceList = Price.generateTimes(priceList);
         priceList = Price.setPrices(priceList);
         userChoice = menu();
       } else if (userChoice.equals("2")) {
+        for (Price price : priceList){
+          System.out.println(price.time + " " + price.price);
+        }
         Price.minMaxAverage(priceList);
         userChoice = menu();
       } else if (userChoice.equals("3")) {
