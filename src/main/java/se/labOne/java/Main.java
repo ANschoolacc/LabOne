@@ -1,6 +1,5 @@
 package se.labOne.java;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -10,33 +9,33 @@ public class Main {
 
   public static void main(String[] args) {
 
-    ArrayList<Price> priceList = new ArrayList<>();
+    PricesList pricesList = new PricesList();
     String userChoice;
-
     userChoice = menu();
 
-    if (userChoice.equals("e") || userChoice.equals("E")) {
-      System.exit(0);
-    }
-
     while (!userChoice.equals("e")) {
-      if (userChoice.equals("1")) {
-        priceList.clear();
-        priceList = Price.generateTimes(priceList);
-        priceList = Price.setPrices(priceList);
-        userChoice = menu();
-      } else if (userChoice.equals("2")) {
-        Price.minMaxAverage(priceList);
-        userChoice = menu();
-      } else if (userChoice.equals("3")) {
-        Price.sortByPrice(priceList);
-        userChoice = menu();
-      } else if (userChoice.equals("4")) {
-        Price.lowestWindow(priceList);
-        userChoice = menu();
+      switch (userChoice) {
+        case "1" -> {
+          pricesList.clear();
+          pricesList.generateTimes();
+          pricesList.setPrices(sc);
+          userChoice = menu();
+        }
+        case "2" -> {
+          pricesList.minMaxAverage();
+          userChoice = menu();
+        }
+        case "3" -> {
+          pricesList.sortByPrice();
+          userChoice = menu();
+        }
+        case "4" -> {
+          pricesList.lowestWindow();
+          userChoice = menu();
+        }
       }
     }
-
+      System.exit(0);
   }
 
   public static String menu() {
