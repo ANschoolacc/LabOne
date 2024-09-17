@@ -1,5 +1,6 @@
 package se.labOne.java;
 
+import java.io.*;
 import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.util.*;
@@ -89,9 +90,13 @@ public class PricesList {
   }
 
   public void sortByPrice() {
-    pricesList.stream()
-        .sorted(Comparator.comparingInt(Price::getPrice))
-        .toList().forEach(Price::printPriceAndTime);
+    if (pricesList.size() != 24) {
+      System.out.println("Du måste ange priserna för dygnets timmar innan du kan använda denna funktion");
+    } else {
+      pricesList.stream()
+          .sorted(Comparator.comparingInt(Price::getPrice))
+          .toList().forEach(Price::printPriceAndTime);
+    }
   }
 
   public void lowestWindow() {
@@ -119,6 +124,51 @@ public class PricesList {
       System.out.println("Tid att börja ladda: " + pricesList.get(endIndex - (windowsSize - 1)).getTimeAsString().substring(0, 2));
       System.out.println("Totalpris: " + minSum + " öre");
       System.out.println("Medelpris: " + twoDecimalFormat((double) minSum / windowsSize) + " öre");
+    }
+  }
+
+  public List<String[]> readCsv() {
+    String file = "src\\elpriser.csv";
+    BufferedReader reader = null;
+    String line;
+    List<String[]> csvData = new ArrayList<>();
+    try {
+      reader = new BufferedReader(new FileReader(file));
+      while ((line = reader.readLine()) != null) {
+        String[] row = line.split(",");
+        csvData.add(row);
+      }
+    }catch (Exception e){
+      System.out.println("No csv file found");
+      return null;
+    }
+    finally {
+      try{
+        if (reader != null) {
+          reader.close();
+        }
+      } catch (IOException e) {
+        System.out.println("Something went wrong with reading file");
+      }
+    }
+    return  csvData;
+  }
+
+  public void importPricesFromCsv() {
+
+    List<String[]> csvData;
+    if (readCsv() != null) {
+      csvData = readCsv();
+    }else {
+      return;
+    }
+
+    for (int i = 1; i < csvData.size(); i++) {
+      String[] row = csvData.get(i);
+      Price price = new Price(LocalTime.parse(row[0]), LocalTime.parse(row[0]).plusHours(1));
+      double p = Double.parseDouble(row[1]);
+      price.setPrice((int) Math.round(p));
+      pricesList.add(price);
     }
   }
 }
