@@ -33,6 +33,11 @@ public class Main {
           pricesList.lowestWindow();
           userChoice = menu();
         }
+        case "5" -> {
+          pricesList.clear();
+          pricesList.importPricesFromCsv();
+          userChoice = menu();
+        }
       }
     }
       System.exit(0);
@@ -46,6 +51,7 @@ public class Main {
     System.out.println("2. Min, Max, Medel");
     System.out.println("3. Sortera");
     System.out.println("4. Bästa Laddningstid (4h)");
+    System.out.println("5. Läs In Priser Från Csv Fil");
     System.out.println("e. Avsluta");
 
     String userChoice;
@@ -53,7 +59,7 @@ public class Main {
       try {
         userChoice = sc.nextLine();
         if (userChoice.length() == 1 &&
-            (('1' <= userChoice.charAt(0) && userChoice.charAt(0) <= '4')
+            (('1' <= userChoice.charAt(0) && userChoice.charAt(0) <= '5')
                 || (userChoice.charAt(0) == 'e' || userChoice.charAt(0) == 'E'))) {
           return userChoice;
         } else {
